@@ -1,4 +1,4 @@
-﻿Feature: FeatureUsingStepBindings
+﻿Feature: Using step bindings
 	In order to test my Azure functions
 	As a developer
 	I want to be able to start an Azure function from a step in my Scenario
@@ -40,3 +40,12 @@ Scenario: A Post request without a querystring or request body fails
 	Given I start a functions instance for the local project 'DemoFunction' on port 7075 with runtime 'netcoreapp3.0'
 	When I send a POST request to 'http://localhost:7075/'
 	Then I receive a 400 response code
+
+Scenario: Supplying an alternative greeting via configuration
+	Given I have set additional configuration for functions instances
+	| Key             | Value           |
+	| ResponseMessage | Welcome, {name} |
+	And I start a functions instance for the local project 'DemoFunction' on port 7075 with runtime 'netcoreapp3.0'
+	When I send a GET request to 'http://localhost:7075/?name=Jon'
+	Then I receive a 200 response code
+	And the response body contains the text 'Welcome, Jon'

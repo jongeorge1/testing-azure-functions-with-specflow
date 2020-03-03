@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using Corvus.SpecFlow.Extensions;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
@@ -15,10 +16,25 @@
         private readonly HttpClient client;
 
         private HttpResponseMessage lastHttpResponseMessage;
+        private readonly ScenarioContext scenarioContext;
 
-        public StepBindings()
+        public StepBindings(ScenarioContext scenarioContext)
         {
             this.client = new HttpClient();
+            this.scenarioContext = scenarioContext;
+        }
+
+        [Given("I have set additional configuration for functions instances")]
+        public void GivenIHaveSetAdditionalConfigurationForFunctionsInstances(Table table)
+        {
+            var functionConfiguration = new FunctionConfiguration();
+
+            foreach (TableRow row in table.Rows)
+            {
+                functionConfiguration.EnvironmentVariables.Add(row[0], row[1]);
+            }
+
+            this.scenarioContext.Set(functionConfiguration);
         }
 
         [When("I send a GET request to '(.*)'")]

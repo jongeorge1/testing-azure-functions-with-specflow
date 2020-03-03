@@ -21,7 +21,17 @@
                 "netcoreapp3.0");
         }
 
-        [AfterFeature("usingDemoFunctionPerFeature")]
+        [BeforeScenario("usingDemoFunctionPerFeatureWithAdditionalConfiguration")]
+        public static Task StartFunctionWithAdditionalConfigurationAsync(FeatureContext featureContext)
+        {
+            var functionConfiguration = new FunctionConfiguration();
+            functionConfiguration.EnvironmentVariables.Add("ResponseMessage", "Welcome, {name}");
+            featureContext.Set(functionConfiguration);
+
+            return StartFunctionsAsync(featureContext);
+        }
+
+        [AfterFeature("usingDemoFunctionPerFeature", "usingDemoFunctionPerFeatureWithAdditionalConfiguration")]
         public static void StopFunction(FeatureContext featureContext)
         {
             FunctionsController functionsController = featureContext.Get<FunctionsController>();

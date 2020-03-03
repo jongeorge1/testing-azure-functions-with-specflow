@@ -5,10 +5,10 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public static class DemoFunctionPerScenario
+    public class DemoFunctionPerScenario
     {
         [BeforeScenario("usingDemoFunctionPerScenario")]
-        public static Task StartFunctionsAsync(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public Task StartFunctionsAsync(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
             var functionsController = new FunctionsController();
             scenarioContext.Set(functionsController);
@@ -21,8 +21,18 @@
                 "netcoreapp3.0");
         }
 
-        [AfterScenario("usingDemoFunctionPerScenario")]
-        public static void StopFunction(ScenarioContext scenarioContext)
+        [BeforeScenario("usingDemoFunctionPerScenarioWithAdditionalConfiguration")]
+        public Task StartFunctionWithAdditionalConfigurationAsync(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            var functionConfiguration = new FunctionConfiguration();
+            functionConfiguration.EnvironmentVariables.Add("ResponseMessage", "Welcome, {name}");
+            scenarioContext.Set(functionConfiguration);
+
+            return this.StartFunctionsAsync(featureContext, scenarioContext);
+        }
+
+        [AfterScenario("usingDemoFunctionPerScenario", "usingDemoFunctionPerScenarioWithAdditionalConfiguration")]
+        public void StopFunction(ScenarioContext scenarioContext)
         {
             FunctionsController functionsController = scenarioContext.Get<FunctionsController>();
             functionsController.TeardownFunctions();

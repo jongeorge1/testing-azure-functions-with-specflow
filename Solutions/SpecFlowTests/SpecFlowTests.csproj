@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ScenariosUsingPerFeatureHook - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\ScenariosUsingPerScenarioHook - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ScenariosUsingStepBindings - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,20 +21,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\ScenariosUsingPerFeatureHookWithAdditionalConfiguration.feature.cs">
+      <DependentUpon>ScenariosUsingPerFeatureHookWithAdditionalConfiguration.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ScenariosUsingPerScenarioHookWithAdditionalConfiguration.feature.cs">
+      <DependentUpon>ScenariosUsingPerScenarioHookWithAdditionalConfiguration.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <SpecFlowFeatureFiles Update="Features\ScenariosUsingPerFeatureHook.feature">
+    <SpecFlowFeatureFiles Update="Features\ScenariosUsingPerFeatureHookWithAdditionalConfiguration.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\ScenariosUsingPerScenarioHook.feature">
+    <SpecFlowFeatureFiles Update="Features\ScenariosUsingPerScenarioHookWithAdditionalConfiguration.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
   </ItemGroup>
-
 </Project>

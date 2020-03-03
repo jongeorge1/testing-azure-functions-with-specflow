@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoFunction", "DemoFunction\DemoFunction.csproj", "{71083517-E4A7-478B-9306-9B130767EE87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoFunction", "DemoFunction\DemoFunction.csproj", "{71083517-E4A7-478B-9306-9B130767EE87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowTests", "SpecFlowTests\SpecFlowTests.csproj", "{D98B2857-5C27-4934-B124-8DEEB728E61F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlowTests", "SpecFlowTests\SpecFlowTests.csproj", "{D98B2857-5C27-4934-B124-8DEEB728E61F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0D05949-82D9-4B1C-8107-2566277AE3BB}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

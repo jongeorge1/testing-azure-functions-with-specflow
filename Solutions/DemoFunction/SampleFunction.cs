@@ -10,6 +10,7 @@ namespace DemoFunction
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.Http;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
 
@@ -18,6 +19,17 @@ namespace DemoFunction
     /// </summary>
     public class SampleFunction
     {
+        private readonly string message;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SampleFunction"/> class.
+        /// </summary>
+        /// <param name="configuration">The current config.</param>
+        public SampleFunction(IConfiguration configuration)
+        {
+            this.message = configuration["ResponseMessage"];
+        }
+
         /// <summary>
         /// Sample endpoint that returns a basic Hello World string with a value drawn from either the
         /// querystring or the request body.
@@ -38,8 +50,10 @@ namespace DemoFunction
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name ??= data?.name;
 
+            string result = this.message.Replace("{name}", name);
+
             return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
+                ? (ActionResult)new OkObjectResult(result)
                 : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
         }
     }
